@@ -1,0 +1,6 @@
+[submodule "cmake/modules"]
+	path = cmake/modules
+	url = https://github.com/magiruuvelvet/shared-cmake-modules.git
+[submodule "tests/bandit"]
+	path = tests/bandit
+	url = https://github.com/banditcpp/bandit
