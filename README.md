@@ -2,7 +2,7 @@
 
 **Simple stupid command line parser for C++**
 
-*This library has a D equivalent available with the exact same API: [argparse-cpp](https://github.com/magiruuvelvet/argparse-d)*
+*This library has a D equivalent available with the exact same API: [argparse-d](https://github.com/magiruuvelvet/argparse-d)*
 
 This library is partially inspired by and older version of [argparse](https://github.com/jamolnng/argparse).
 The parser only supports boolean and string options, while boolean options are always true when present.
