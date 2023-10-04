@@ -250,5 +250,69 @@ go_bandit([]{
 
             AssertThat(parser.loseArguments(), Equals(std::list<std::string>{}));
         });
+
+        benchmark_it("[avoidMatchingEmptyStringArgument1]", [&]{
+            ArgumentParser parser({"app", "--empty-short-option", "-x"});
+            parser.addArgument("", "empty-short-option", "");
+            parser.addArgument("", "empty-short-option2", "");
+            parser.addArgument("l", "", "");
+            parser.addArgument("x", "", "");
+            const auto res = parser.parse();
+
+            AssertThat(parser.exists("empty-short-option"), IsTrue());
+            AssertThat(parser.exists("empty-short-option2"), IsFalse());
+            AssertThat(parser.exists("l"), IsFalse());
+            AssertThat(parser.exists("x"), IsTrue());
+            AssertThat(parser.loseArguments(), Equals(std::list<std::string>{}));
+            AssertThat(parser.exists(""), IsFalse());
+        });
+
+        benchmark_it("[avoidMatchingEmptyStringArgument2]", [&]{
+            ArgumentParser parser({"app", "--empty-short-option2"});
+            parser.addArgument("", "empty-short-option", "");
+            parser.addArgument("", "empty-short-option2", "");
+            parser.addArgument("l", "", "");
+            parser.addArgument("x", "", "");
+            const auto res = parser.parse();
+
+            AssertThat(parser.exists("empty-short-option"), IsFalse());
+            AssertThat(parser.exists("empty-short-option2"), IsTrue());
+            AssertThat(parser.exists("l"), IsFalse());
+            AssertThat(parser.exists("x"), IsFalse());
+            AssertThat(parser.loseArguments(), Equals(std::list<std::string>{}));
+            AssertThat(parser.exists(""), IsFalse());
+        });
+
+        benchmark_it("[avoidMatchingEmptyStringArgument3]", [&]{
+            ArgumentParser parser({"app", "-x"});
+            parser.addArgument("", "empty-short-option", "");
+            parser.addArgument("", "empty-short-option2", "");
+            parser.addArgument("l", "", "");
+            parser.addArgument("x", "", "");
+            const auto res = parser.parse();
+
+            AssertThat(parser.exists("empty-short-option"), IsFalse());
+            AssertThat(parser.exists("empty-short-option2"), IsFalse());
+            AssertThat(parser.exists("l"), IsFalse());
+            AssertThat(parser.exists("x"), IsTrue());
+            AssertThat(parser.loseArguments(), Equals(std::list<std::string>{}));
+            AssertThat(parser.exists(""), IsFalse());
+        });
+
+        benchmark_it("[avoidMatchingEmptyStringArgument4]", [&]{
+            ArgumentParser parser({"app", "--"});
+            parser.addArgument("", "empty-short-option", "");
+            parser.addArgument("", "empty-short-option2", "");
+            parser.addArgument("l", "", "");
+            parser.addArgument("x", "", "");
+            const auto res = parser.parse();
+
+            AssertThat(parser.exists("empty-short-option"), IsFalse());
+            AssertThat(parser.exists("empty-short-option2"), IsFalse());
+            AssertThat(parser.exists("l"), IsFalse());
+            AssertThat(parser.exists("x"), IsFalse());
+            AssertThat(parser.loseArguments(), Equals(std::list<std::string>{}));
+            AssertThat(parser.exists(""), IsFalse());
+        });
     });
 });

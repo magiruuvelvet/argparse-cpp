@@ -76,9 +76,18 @@ bool argparse::ArgumentParser::exists(const std::string &name) const
         return false;
     }
 
+    if (name.empty())
+    {
+        return false;
+    }
+
     for (auto&& arg : this->arguments)
     {
-        if (arg.present() && (arg.name() == name || arg.shortName() == name || arg.longName() == name))
+        // avoid matching empty strings
+        bool argShortNameMatches = arg.hasShortName() && arg.shortName() == name;
+        bool argLongNameMatches = arg.hasLongName() && arg.longName() == name;
+
+        if (arg.present() && (argShortNameMatches || argLongNameMatches))
         {
             return true;
         }

@@ -84,7 +84,11 @@ static Argument *find_argument(Arguments &registeredArguments, const std::string
 {
     for (auto& argument : registeredArguments)
     {
-        if (argument.name() == name || argument.longName() == name || argument.shortName() == name)
+        // avoid matching empty strings
+        bool argShortNameMatches = argument.hasShortName() && argument.shortName() == name;
+        bool argLongNameMatches = argument.hasLongName() && argument.longName() == name;
+
+        if (argShortNameMatches || argLongNameMatches)
         {
             return &argument;
         }
