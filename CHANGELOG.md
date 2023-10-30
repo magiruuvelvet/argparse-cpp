@@ -1,5 +1,9 @@
 # Changelog
 
+## `2.0.1`
+
+ - fix missing `<cstring>` include in `argument.hpp`
+
 ## `2.0.0`
 
 **BREAKING CHANGE**
